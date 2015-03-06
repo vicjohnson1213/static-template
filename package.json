@@ -1,0 +1,28 @@
+{
+  "name": "static-template",
+  "version": "1.0.0",
+  "description": "An Express middleware to serve entire directories through a templating engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicjohnson1213/static-template"
+  },
+  "author": "Victor Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vicjohnson1213/static-template/issues"
+  },
+  "homepage": "https://github.com/vicjohnson1213/static-template",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^2.1.1",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.1.0",
+    "rewire": "^2.3.1",
+    "sinon": "^1.13.0"
+  }
+}
