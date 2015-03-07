@@ -1,25 +1,37 @@
-var path = require('path'),
-    fs = require('fs');
+var path = require('path');
+
+function sendHtml(req, res, next, url) {
+    console.log('sending:', url);
+    res.sendfile(url, {}, function(err) {
+        console.log(err);
+        if (err) {
+            next();
+        }
+    });
+}
 
 exports.staticTemplate = function(views, opts) {
     var opts = opts || {};
     return function(req, res, next) {
-        var url = path.join((views || 'views'), req.originalUrl);
+        url = path.join((views || 'views'), req.originalUrl);
+        console.log(url);
+        if (url.slice(-5) === '.html') {
+            sendHtml(req, res, next, url);
+            return;
+        };
+
         res.render(url, {}, function(err, html) {
             if (!err) {
+                console.log('rendering early:', html);
                 res.end(html);
             } else {
-                fs.stat(url, function(errStat, stats) {
-                    if (stats && stats.isDirectory()) {
-                        res.render(path.normalize(url + '/index'), {}, function(errIndex, index) {
-                            if (!errIndex) {
-                                res.end(index);
-                            } else {
-                                return next();
-                            }
-                        });
+                console.log('about to render:', path.join(url, 'index'));
+                res.render(path.join(url, 'index'), function(indexErr, indexHtml) {
+                    console.log('rendering:', path.join(url, 'index'));
+                    if (!indexErr) {
+                        res.end(indexHtml);
                     } else {
-                        return next();
+                        sendHtml(path.join(url, 'index.html'));
                     }
                 });
             }
