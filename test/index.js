@@ -93,4 +93,27 @@ describe('static-template', function (argument) {
         var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
         middleware(req, res, function() { return done(); });
     });
+
+    it('should call next if serveDirs is not true', function(done) {
+        var req = {
+            originalUrl: 'someDir'
+        };
+
+        var res = {
+            render: function() {},
+            writeHead: sinon.spy()
+        };
+
+        sinon.stub(res, "render")
+            .onFirstCall().callsArgWith(2, 'was a dir', null)
+            .onSecondCall().callsArgWith(2, 'doesn\'t exist');
+
+        var middleware = ss.staticTemplate('/path', {
+            templateOpts: 'opts template',
+            serveDirs: false
+        });
+
+        middleware(req, res, function() { return done(); });
+        expect(res.writeHead.called).to.be.false;
+    });
 });
