@@ -10,12 +10,6 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install static-template --save
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```js
-grunt.loadNpmTasks('grunt-contrib-jshint');
-```
-
 ## Using static-template
 
 To use static-template you must first require the module in the file running your express server.  You can then specify the express route and the directory of the views.  If no views directory is specified, the middleware will look in the `views` directory.
