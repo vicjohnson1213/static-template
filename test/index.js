@@ -62,7 +62,8 @@ describe('static-template', function (argument) {
         var res = {
             render: function() {},
             end: function(text) {
-                expect(text).to.equal('html render 2');
+                expect(text).to.equal('html render');
+                // expect(text).to.equal('html render 2');
                 done();
             },
             writeHead: sinon.spy()
