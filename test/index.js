@@ -20,7 +20,8 @@ describe('static-template', function (argument) {
             end: function(text) {
                 expect(text).to.equal('html');
                 done();
-            }
+            },
+            writeHead: sinon.spy()
         };
 
         var middleware = ss.staticTemplate('/path', { otherOpts: 'opts' });
@@ -43,7 +44,8 @@ describe('static-template', function (argument) {
             end: function(text) {
                 expect(text).to.equal('html');
                 done();
-            }
+            },
+            writeHead: sinon.spy()
         };
 
         var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
@@ -62,7 +64,8 @@ describe('static-template', function (argument) {
             end: function(text) {
                 expect(text).to.equal('html render 2');
                 done();
-            }
+            },
+            writeHead: sinon.spy()
         };
 
         sinon.stub(res, "render")
@@ -79,7 +82,8 @@ describe('static-template', function (argument) {
         };
 
         var res = {
-            render: function() {}
+            render: function() {},
+            writeHead: sinon.spy()
         };
 
         sinon.stub(res, "render")
