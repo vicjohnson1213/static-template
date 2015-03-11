@@ -1,4 +1,4 @@
-# static-template
+# static-template [![Build Status](https://travis-ci.org/vicjohnson1213/static-template.svg?branch=master)](https://travis-ci.org/vicjohnson1213/static-template)
 
 >An Express middleware to serve the contents a directory through a templating engine
 
