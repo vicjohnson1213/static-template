@@ -1,69 +1,92 @@
 var expect = require('chai').expect,
     sinon = require('sinon'),
-    rewire = require('rewire');
+    path = require('path'),
+    ss = require('../index.js');
 
 describe('static-template', function (argument) {
-    var ss = rewire('../index');
-
-    beforeEach(function() {
-
-    });
-
-    it('should sendFile if .html', function() {
-        var req = {
-            originalUrl: 'someFile.html'
-        };
-
-        var res = {
-            sendFile: sinon.spy(),
-            render: sinon.spy()
-        };
-
-        var middleware = ss.staticTemplate('/path', { opts: 'opts' });
-        middleware(req, res, function() { return; });
-
-        expect(res.sendFile.calledWithExactly('a;sldfjk'));
-
-    });
-
-    it.only('should render if not html', function() {
+    it('should render on first try if no error', function(done) {
         var req = {
             originalUrl: 'someFile'
         };
 
         var render = function(url, opts, callback) {
+            expect(url).to.equal(path.join('/path', 'someFile'));
+            expect(opts).to.be.empty;
             callback(null, 'html');
         };
 
         var res = {
-            sendFile: sinon.spy(),
             render: render,
-            end: sinon.spy()
+            end: function(text) {
+                expect(text).to.equal('html');
+                done();
+            }
         };
 
-        var middleware = ss.staticTemplate('/path', { opts: 'opts' });
+        var middleware = ss.staticTemplate('/path', { otherOpts: 'opts' });
         middleware(req, res, function() { return; });
-    })
+    });
 
-    // it('should render if a template file is found.', function() {
-    //     var render = function(url, opts, callback) {
-    //         expect(url).to.equal(path.normalize('/path/originalUrl'));
-    //         callback(null, 'html here');
-    //     }
+    it('should render from template dir', function(done) {
+        var req = {
+            originalUrl: 'someFile'
+        };
 
-    //     var req = {
-    //         originalUrl: 'originalUrl'
-    //     };
+        var render = function(url, opts, callback) {
+            expect(url).to.equal(path.join('/path', 'someFile'));
+            expect(opts).to.equal('opts template');
+            callback(null, 'html');
+        };
 
-    //     var res = {
-    //         render: render,
-    //         end: sinon.spy()
-    //     };
+        var res = {
+            render: render,
+            end: function(text) {
+                expect(text).to.equal('html');
+                done();
+            }
+        };
 
-    //     var middleware = ss.staticTemplate('/path', { opts: 'opts' });
+        var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
+        middleware(req, res, function() { return; });
 
-    //     middleware(req, res, function() { return; });
 
-    //     expect(res.end.calledWith('html here')).to.be.true;
-    // });
+    });
+
+    it('should try to render an index file if first render failed', function(done) {
+        var req = {
+            originalUrl: 'someDir'
+        };
+
+        var res = {
+            render: function() {},
+            end: function(text) {
+                expect(text).to.equal('html render 2');
+                done();
+            }
+        };
+
+        sinon.stub(res, "render")
+            .onFirstCall().callsArgWith(2, 'was a dir', null)
+            .onSecondCall().callsArgWith(2, null, 'html render 2');
+
+        var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
+        middleware(req, res, function() { return; });
+    });
+
+    it('should call next if no file or dir', function(done) {
+        var req = {
+            originalUrl: 'someDir'
+        };
+
+        var res = {
+            render: function() {}
+        };
+
+        sinon.stub(res, "render")
+            .onFirstCall().callsArgWith(2, 'was a dir', null)
+            .onSecondCall().callsArgWith(2, 'doesn\'t exist');
+
+        var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
+        middleware(req, res, function() { return done(); });
+    });
 });

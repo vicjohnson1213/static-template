@@ -1,2 +1,40 @@
 # static-template
-An Express middleware to serve entire directories through a templating engine
+
+>An Express middleware to serve the contents a directory through a templating engine
+
+## Getting Started
+
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
+
+```shell
+npm install static-template --save
+```
+
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+
+```js
+grunt.loadNpmTasks('grunt-contrib-jshint');
+```
+
+## Using static-template
+
+To use static-template you must first require the module in the file running your express server.  You can then specify the express route and the directory of the views.  If no views directory is specified, the middleware will look in the `views` directory.
+
+The second parameter to the staticTemplate is for any options.  Options to be sent to your templates should be put in the `templateOpts` property.
+
+```js
+staticTemplate = require('static-template');
+
+app.use('/route/to/use', staticTemplate.staticTemplate('path/to/views'));
+```
+
+Any asset directories should be designated static using express' built in static middleware.
+
+```js
+app.use('/route/to/asset', express.static('/path/to/assets'));
+
+If rendering fails, express will move on to the next middleware.
+
+## License
+
+MIT

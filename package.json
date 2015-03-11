@@ -16,7 +16,9 @@
     "url": "https://github.com/vicjohnson1213/static-template/issues"
   },
   "homepage": "https://github.com/vicjohnson1213/static-template",
-  "dependencies": {},
+  "dependencies": {
+    "grunt-contrib-jshint": "^0.11.0"
+  },
   "devDependencies": {
     "chai": "^2.1.1",
     "grunt": "^0.4.5",
