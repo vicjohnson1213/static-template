@@ -1,3 +1,10 @@
+/*
+ * static-template
+ * An Express middleware to serve the contents a directory through a templating engine
+ *
+ * Copyright (c) Victor Johnson
+ */
+
 var path = require('path'),
     merge = require('merge');
 
