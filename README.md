@@ -24,7 +24,6 @@ The second parameter to the staticTemplate is for any options.  Options to be se
 
 ```js
 staticTemplate = require('static-template');
-
 app.use('/route/to/use', staticTemplate.staticTemplate('path/to/views'));
 ```
 
@@ -32,6 +31,7 @@ Any asset directories should be designated static using express' built in static
 
 ```js
 app.use('/route/to/asset', express.static('/path/to/assets'));
+```
 
 If rendering fails, express will move on to the next middleware.
 
