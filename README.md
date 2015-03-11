@@ -40,10 +40,10 @@ app.use('/', staticTemplate.staticTemplate('public/views', {
 }));
 ```
 
-#### serveDirs: Boolean (default: true)
+##### serveDirs: Boolean (default: true)
 If serveDirs is **true**, static-serve will check for an `index` file inside a directory with the requested path if the first page render fails.
 
-#### templateOpts: Object (default empty)
+##### templateOpts: Object (default empty)
 This object will be sent to the templating engine in the `render` calls.
 
 ## Contributing
