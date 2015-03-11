@@ -10,7 +10,7 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install static-template --save
 ```
 
-## Using static-template
+## Usage
 
 To use static-template you must first require the module in the file running your express server.  You can then specify the express route and the directory of the views.  If no views directory is specified, the middleware will look in the `views` directory.
 
@@ -28,6 +28,11 @@ app.use('/route/to/asset', express.static('/path/to/assets'));
 ```
 
 If rendering fails, express will move on to the next middleware.
+
+## Contributing
+
+In lieu of a formal styleguide, take care to maintain the existing coding style.
+Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## License
 

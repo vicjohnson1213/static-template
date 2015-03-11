@@ -4,12 +4,16 @@
   "description": "An Express middleware to serve entire directories through a templating engine",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vicjohnson1213/static-template"
+    "url": "git://github.com/vicjohnson1213/static-template.git"
   },
+  "keywords": [
+    "static",
+    "template"
+  ],
   "author": "Victor Johnson",
   "license": "MIT",
   "bugs": {
