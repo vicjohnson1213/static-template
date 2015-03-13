@@ -50,8 +50,6 @@ describe('static-template', function (argument) {
 
         var middleware = ss.staticTemplate('/path', { templateOpts: 'opts template' });
         middleware(req, res, function() { return; });
-
-
     });
 
     it('should try to render an index file if first render failed', function(done) {
