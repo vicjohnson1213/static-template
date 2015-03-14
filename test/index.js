@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
     sinon = require('sinon'),
     path = require('path'),
-    ss = require('../lib/index.js');
+    ss = require('../index.js');
 
 describe('static-template', function (argument) {
     it('should render on first try if no error', function(done) {
