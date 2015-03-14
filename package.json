@@ -24,11 +24,18 @@
     "merge": "^1.2.0"
   },
   "devDependencies": {
+    "blanket": "^1.1.6",
     "chai": "^2.1.1",
     "grunt": "^0.4.5",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-mocha-test": "^0.12.7",
     "mocha": "^2.1.0",
-    "sinon": "^1.13.0"
+    "sinon": "^1.13.0",
+    "travis-cov": "^0.2.5"
+  },
+  "config": {
+    "travis-cov": {
+      "threshold": 95
+    }
   }
 }
